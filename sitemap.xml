@@ -2,14 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://isbut.cn/manifest.json</loc>
+    <loc>https://isbut.cn/posts/37509/</loc>
     
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     
   </url>
   
   <url>
     <loc>https://isbut.cn/posts/37509/</loc>
+    
+    <lastmod>2021-02-10</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://isbut.cn/manifest.json</loc>
     
     <lastmod>2021-01-15</lastmod>
     
@@ -39,7 +46,7 @@
 
   <url>
     <loc>https://isbut.cn/</loc>
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,14 +54,14 @@
   
   <url>
     <loc>https://isbut.cn/tags/cs-basic/</loc>
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/tags/cs-net/</loc>
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -63,14 +70,14 @@
   
   <url>
     <loc>https://isbut.cn/categories/cs-basic/</loc>
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/categories/cs-basic/cs-net/</loc>
-    <lastmod>2021-01-15</lastmod>
+    <lastmod>2021-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
