@@ -6,7 +6,7 @@
   <link href="https://isbut.cn/atom.xml" rel="self"/>
   
   <link href="https://isbut.cn/"/>
-  <updated>2021-02-10T02:50:04.460Z</updated>
+  <updated>2021-02-10T03:17:58.905Z</updated>
   <id>https://isbut.cn/</id>
   
   <author>
@@ -17,27 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>计算机网络中的4种TCP计时器详解</title>
-    <link href="https://isbut.cn/posts/37509/"/>
-    <id>https://isbut.cn/posts/37509/</id>
+    <title>单例模式之双重校验锁的优缺点</title>
+    <link href="https://isbut.cn/posts/34451/"/>
+    <id>https://isbut.cn/posts/34451/</id>
     <published>2021-02-10T02:51:14.146Z</published>
-    <updated>2021-02-10T02:50:04.460Z</updated>
+    <updated>2021-02-10T03:17:58.905Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>TCP共使用以下四种计时器：重传计时器、持续计时器、保活计时器和时间等待计时器。这几个计时器的主要特点如下：</p></blockquote><h2 id="重传计时器"><a href="#重传计时器" class="headerlink" title="重传计时器"></a>重传计时器</h2><p>当TCP发送报文段时，创建该特定报文段的重传计时器。可能发生两种情况：</p><ol><li>若在计时器截止时间到之前收到了对此特定报文段的确认ACK，则撤销此计时器。</li><li>若在收到了对此特定报文段的确认之前计时器截止期到，则重传此报文段，并将计时器复位。</li></ol><h2 id="持续计时器"><a href="#持续计时器" class="headerlink" title="持续计时器"></a>持续计时器</h2><p>窗口大小通知：接收方可接收缓存的数据大小；接收方发送窗口大小通知给传送方，传送方才能发送数据，如果接收方缓存已满，会发送零窗口大小通知给发送方。</p><p>为了对付零窗口大小通知，TCP需要另一个计时器。</p><p>假定接收TCP宣布了窗口大小为零：发送TCP就停止传送报文段，直到接收TCP发送确认并宣布一个非零的窗口大小。但这个确认可能会丢失。我们知道在TCP中，对确认是不需要发送确认的。若确认丢失了，接收TCP并不知道，而是会认为它已经完成任务了，并等待着发送TCP接着会发送更多的报文段。但发送TCP由于没有收到确认，就等待对方发送确认来通知窗口的大小。双方的TCP都在永远地等待着对方。</p><p>为了解决这种死锁等待情况，TCP为每一个连接使用一个坚持计时器。当发送TCP收到一个窗口大小为零的确认时，就启动坚持计时器。当坚持计时器期限到时，发送TCP就发送探测报文段。这个报文段只有一个字节的数据，有一个序号，但它的序号永远不需要确认；甚至在计算对其他部分的数据的确认时该序号也被忽略。探测报文段提醒对方：确认已丢失，必须重传。</p><p>坚持计时器的值设置为重传时间的数值。但是，若没有收到从接收端来的响应，则需发送另一个探测报文段，并将坚持计时器的值加倍和复位。发送端继续发送探测报文段，将坚持计时器设定的值加倍和复位，直到这个值增大到门限值（通常是60秒）为止。在这以后，发送端每隔60秒就发送一个探测报文段，直到窗口重新打开。</p><h2 id="保活计时器"><a href="#保活计时器" class="headerlink" title="保活计时器"></a>保活计时器</h2><p>保活计时器使用在某些实现中，用来防止在两个TCP之间的连接出现长时期的空闲。</p><p>假定客户打开了到服务器的连接，传送了一些数据，然后就保持静默了。也许这个客户出故障了。在这种情况下，这个连接将永远地处理打开状态。</p><p>要解决这种问题，在大多数的实现中都是使服务器设置保活计时器。每当服务器收到客户的信息，就将计时器复位。超时通常设置为2小时。</p><p>若服务器过了2小时还没有收到客户的信息，它就发送探测报文段。若发送了10个探测报文段，每一个相隔75秒，还没有响应就假定客户出了故障，因而就终止该连接。</p><h2 id="时间等待计时器"><a href="#时间等待计时器" class="headerlink" title="时间等待计时器"></a>时间等待计时器</h2><p>2MSL时间等待计时器是在连接终止期间使用，即：TCP四次挥手最后一次。</p><p>当TCP关闭一个连接时，它并不认为这个连接马上就真正地关闭了。</p><p>时间等待期间中连接还处于一种中间过渡状态。主要是为了让重复的FIN报文段到达目的站，将其丢弃。</p><p>这个计时器的值通常设置为一个报文段的寿命期待值的两倍。</p><p>附：TCP的四次挥手（客户端主动关闭）：</p><p>1 客户端发送断开链接请求FIN包给服务器（socket关闭发送数据的通道）；</p><p>2 服务器接收到FIN包，发送ACK包给客户端，表示同意关闭链接的请求；</p><p>3 服务器recv解堵塞，数据返回长度为0，确认客户端确实已断开链接；</p><p>4 服务器发送断开链接请求FIN包给客户端；</p><p>5 客户端收到FIN包，并发送ACK包给服务器。</p><p>6 客户端同时进入2MSL时间，若时间等待计时器（time_wait）到时，没有再次收到了服务器的FIN，证明服务器接收到自己的ACK包后已正常关闭，客户端也断开链接（socket关闭接收数据的通道）；若未到时，又收到了服务器的FIN包，证明自己发送的ACK包丢失，会再次发送，time_wait重置，直至正常。</p><h3 id="SYN泛洪攻击"><a href="#SYN泛洪攻击" class="headerlink" title="SYN泛洪攻击"></a>SYN泛洪攻击</h3><p>1.采用SYNcookies，当半开区满了之后，服务器对客户端发送的SYN报文并不直接分配半开区的连接，而是通过对源地址以及源端口号等数据进行hash运算，得到一个cookies序列号，并返回给客户端，此时客户端如果收到了并发送ACK报文，则服务器会提取里面的ack-1得到cookies，并将上述要素进行一次cookies运算，得到是否相同，同则分配，不同则拒绝</p><p>2.缩短超时时间、增大半连接的内存容量</p><p>3.使用SYN网关来转发数据包，或者使用SYN代理来与客户端通信</p>]]></content>
-    
-    
-    <summary type="html">计算机网络中TCP连接共使用了4种计时器，分别具有不一样的功能，在连接中起着非常重要的作用。</summary>
+    <content type="html"><![CDATA[<blockquote><p>单例设计双重校验锁这种方式采用双锁机制，安全且在多线程情况下能保持高性能。但其中也有优缺点</p></blockquote><h2 id="双重校验锁代码"><a href="#双重校验锁代码" class="headerlink" title="双重校验锁代码"></a>双重校验锁代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class DoubleLock &#123;</span><br><span class="line">    </span><br><span class="line">    private  static DoubleLock doubleLock;</span><br><span class="line">    </span><br><span class="line">    private DoubleLock()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static DoubleLock getInstance()&#123;</span><br><span class="line">        if (doubleLock &#x3D;&#x3D; null)&#123;</span><br><span class="line">            synchronized (DoubleLock.class)&#123;</span><br><span class="line">                if (doubleLock &#x3D;&#x3D; null)&#123;</span><br><span class="line">                    doubleLock &#x3D; new DoubleLock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return doubleLock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>安全且在多线程情况下能保持高性能，第一个if判断避免了其他无用线程竞争锁来造成性能浪费，第二个if判断能拦截除第一个获得对象锁线程以外的线程。</p><p>如果不加第二次判空，我们考虑下线程A，线程B都阻塞在了获取锁的步骤上，其中A获得锁—实例化了对象—-释放锁，之后B—获得锁—实例化对象，此时违反了我们单例模式的初衷。</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>双重检查锁定背后的理论是完美的。不幸地是，现实完全不同。<strong>双重检查锁定的问题是：并不能保证它会在单处理器或多处理器计算机上顺利运行。</strong></p><p><strong>双重检查锁定失败的问题并不归咎于 JVM 中的实现 bug，而是归咎于 Java 平台内存模型。内存模型允许所谓的“无序写入”，这也是这些习语失败的一个主要原因。</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">singleton &#x3D; new Singleton();</span><br></pre></td></tr></table></figure><p>该语句非原子操作，实际是三个步骤。</p><ul><li>1.给 Singleton 分配内存；</li><li>2.调用 Singleton 的构造函数来初始化成员变量；</li><li>3.将给 singleton 对象指向分配的内存空间（此时 singleton 才不为 null ）；</li></ul><p>虚拟机的<code>指令重排序</code>–&gt;</p><p>执行命令时虚拟机可能会对以上3个步骤交换位置 最后可能是132这种 分配内存并修改指针后未初始化 多线程获取时可能会出现问题。</p><p>当<code>线程A</code>进入同步方法执行<code>singleton = new Singleton();</code>代码时，恰好这三个步骤重排序后为<code>1 3 2</code>，</p><p>那么<code>步骤3</code>执行后 <code>singleton</code> 已经不为 <code>null</code> ,但是未执行<code>步骤2</code>，<code>singleton</code>对象初始化不完全，此时<code>线程B</code>执行 <code>getInstance()</code> 方法，第一步判断时 <code>singleton</code> 不为null,则直接将未完全初始化的<code>singleton</code>对象返回了。</p><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p><strong>如果一个字段被声明成volatile，Java线程内存模型确保所有线程看到这个变量的值是一致的，同时还会禁止指令重排序</strong></p><p>所以使用<code>volatile</code>关键字会禁止指令重排序,可以避免这种问题。使用<code>volatile</code>关键字后使得 <code>singleton = new Singleton();</code>语句一定会按照上面拆分的步骤123来执行。</p><h2 id="另一个问题"><a href="#另一个问题" class="headerlink" title="另一个问题"></a><strong>另一个问题</strong></h2><p>单例模式并不是绝对安全的，可以通过反射来破坏，只有枚举安全类是安全的。</p><p>部分内容参考链接:<a href="https://blog.csdn.net/qq646040754/article/details/81327933">https://blog.csdn.net/qq646040754/article/details/81327933</a></p>]]></content>
     
     
-    
-    <category term="计算机基础" scheme="https://isbut.cn/categories/cs-basic/"/>
-    
-    <category term="计算机网络" scheme="https://isbut.cn/categories/cs-basic/cs-net/"/>
+    <summary type="html">单例设计双重校验锁这种方式采用双锁机制，安全且在多线程情况下能保持高性能。但其中也有优缺点</summary>
     
     
-    <category term="计算机基础" scheme="https://isbut.cn/tags/cs-basic/"/>
     
-    <category term="计算机网络" scheme="https://isbut.cn/tags/cs-net/"/>
+    <category term="java基础" scheme="https://isbut.cn/categories/java%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="设计模式" scheme="https://isbut.cn/categories/java%E5%9F%BA%E7%A1%80/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="java基础" scheme="https://isbut.cn/tags/java%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="设计模式" scheme="https://isbut.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
