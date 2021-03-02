@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isbut.cn/posts/8411/</loc>
+    
+    <lastmod>2021-03-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://isbut.cn/posts/34451/</loc>
     
     <lastmod>2021-02-10</lastmod>
@@ -46,7 +53,7 @@
 
   <url>
     <loc>https://isbut.cn/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -54,28 +61,28 @@
   
   <url>
     <loc>https://isbut.cn/tags/cs-basic/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/tags/cs-net/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/tags/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -84,28 +91,35 @@
   
   <url>
     <loc>https://isbut.cn/categories/cs-basic/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/categories/cs-basic/cs-net/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/categories/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://isbut.cn/categories/java%E5%9F%BA%E7%A1%80/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2021-02-10</lastmod>
+    <lastmod>2021-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isbut.cn/categories/java%E5%9F%BA%E7%A1%80/cs-net/</loc>
+    <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
