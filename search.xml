@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>清空github仓库,而不是删除重新创建.</title>
+      <link href="posts/63313/"/>
+      <url>posts/63313/</url>
+      
+        <content type="html"><![CDATA[<p>今天由于想清空github仓库重新来过，后来不知道怎么解决，于是上网找了资料，顺便发个博文</p><p>– Remove the history from</p><p>（从中删除历史记录）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf .git</span><br></pre></td></tr></table></figure><p>– recreate the repos from the current content only</p><p>（仅从当前内容重新创建存储库）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br></pre></td></tr></table></figure><p>– push to the github remote repos ensuring you overwrite history</p><p>（推送到你的远程仓库，以确保覆盖您的历史记录）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:&lt;YOUR ACCOUNT&gt;&#x2F;&lt;YOUR REPOS&gt;.git</span><br><span class="line">git push -u --force origin master</span><br></pre></td></tr></table></figure><blockquote><p>来源: <a href="https://gist.github.com/stephenhardy/5470814">https://gist.github.com/stephenhardy/5470814</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SSM小书城整合，新手框架整合练习</title>
       <link href="posts/2860/"/>
       <url>posts/2860/</url>
