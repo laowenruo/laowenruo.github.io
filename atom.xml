@@ -6,7 +6,7 @@
   <link href="https://isbut.cn/atom.xml" rel="self"/>
   
   <link href="https://isbut.cn/"/>
-  <updated>2021-03-14T14:21:12.903Z</updated>
+  <updated>2021-03-21T12:34:09.476Z</updated>
   <id>https://isbut.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://isbut.cn/posts/0/"/>
+    <id>https://isbut.cn/posts/0/</id>
+    <published>2021-03-21T12:34:20.840Z</published>
+    <updated>2021-03-21T12:34:09.476Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="关于Java集合的部分复习知识点整理"><a href="#关于Java集合的部分复习知识点整理" class="headerlink" title="关于Java集合的部分复习知识点整理"></a>关于Java集合的部分复习知识点整理</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><ol><li><p>ArrayList本质上继承了AbstractList，而AbstractList则是继承了Collection集合类，并且Arraylist是实现了List的接口</p></li><li><p>ArrayList初始的容量，DEFAULT_CAPACITY = 10，即初始容量为10，但初始化对象的时候可以传入你自定义的容量最大容量为Interger.MaxValue-8</p></li><li><p>ArrayList的默认元素存储，是一个Object[]数组</p></li><li><p>ArrayList源码里面存在一个ensureCapacity的方法，用来确认数组的容量是否需要扩容，扩容的时候采用的是Arrays.Copyof的方法，复制元素到一个新的数组</p></li><li><p>关于ArrayList的扩容机制，达到了定义容量（不传入容量的话，即为默认容量）的时候，会动态扩容1.5倍，也是采用上述的复制方法</p></li><li><p>ArrayList其实是存在手动缩容的方法的，在源码中有叫做 trimToSize()的方法，一般是手动调用的</p></li><li><p>ArrayList中删除元素的Remove方法其实也是采用arraycopy()的方法来进行元素的移动，本质跟数组差不多</p></li><li><p>ArrayList是线程不安全的，里面没有实现线程安全的保障，多线程在访问的时候，实现的自动扩容也是造成线程不安全的一部分原因。相反，常见的Vector基本上是靠synchronized来实现线程安全的</p></li></ol><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><ul><li><p>HashMap实现了Map接口，初始容量为16，最大容量为1 &lt;&lt; 30，默认加载因子为0.75，如果自己传入初始值K，则容量为大于K的2次方整数，例如：传入10的话，则容量为16</p><p><img src="https://img-blog.csdnimg.cn/img_convert/0bd617d78eb7474f3ff0f42d4887f16a.png"></p></li><li><p>HashMap的插入原理</p><p><img src="https://img-blog.csdnimg.cn/img_convert/af26da061524b4f0a182cf0b2749e1ce.png"></p></li><li><p>在JDK1.8之前，HashMap使用数组+链表实现，即使用链表处理冲突，同一hash值的节点都存储在一个链表里。但是当位于一个桶中的元素较多，即hash值相等的元素较多时，通过key值依次查找的效率较低。而JDK1.8中，HashMap采用数组+链表+红黑树实现，当链表长度超过阈值（8）时，将链表转换为红黑树，这样大大减少了查找时间，红黑树转链表的阈值是6</p><ul><li>hash函数是通过拿到key的hashcode，然后让hashcode的高16位和低16位进行异或操作，这样设计的原因是尽可能地减小hash碰撞，其二是位运算比较高效</li></ul></li><li><p>hashmap如果采用头插法的话，在多线程的情况下会产生环，并且hashmap在多线程下也是不安全的，在JDK8之前的话，是先判断扩容再插入的，而JDK8之后则是先插入再判断是否需要扩容，扩容为扩容到原数组大小的2倍</p><ul><li><p>扩容的时候1.7需要对原数组中的元素进行重新hash定位在新数组的位置，1.8采用更简单的判断逻辑，位置不变或索引+旧容量大小</p></li><li><p>链表转红黑树，并不是达到8个Node节点的阈值就进行转换，而是要判断一下整个数据结构中的Node数量是否大于64，大于才会转，小于就会用扩容数组的方式代替红黑树的转换</p></li></ul><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2></li></ul><p>Java中有HashTable、Collections.synchronizedMap、以及ConcurrentHashMap可以实现线程安全的Map。</p><ol><li>HashTable是直接在操作方法上加synchronized关键字，锁住整个数组，粒度比较大；</li><li>Collections.synchronizedMap是使用Collections集合工具的内部类，通过传入Map封装出一个SynchronizedMap对象，内部定义了一个对象锁，方法内通过对象锁实现；</li><li>ConcurrentHashMap使用分段锁，降低了锁粒度，让并发度大大提高。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;关于Java集合的部分复习知识点整理&quot;&gt;&lt;a href=&quot;#关于Java集合的部分复习知识点整理&quot; class=&quot;headerlink&quot; title=&quot;关于Java集合的部分复习知识点整理&quot;&gt;&lt;/a&gt;关于Java集合的部分复习知识点整理&lt;/h1&gt;&lt;h2 id=&quot;A</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java设计模式之抽象工厂模式</title>
